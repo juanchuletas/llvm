@@ -368,7 +368,7 @@ using KernelPropertyHolderStructTy =
 template <bool IsESIMDKernel = false, typename PropertiesT,
           class = typename std::enable_if_t<
               ext::oneapi::experimental::is_property_list_v<PropertiesT>>>
-constexpr KernelPropertyHolderStructTy
+inline KernelPropertyHolderStructTy
 extractKernelProperties(PropertiesT Props) {
   static_assert(
       !PropertiesT::template has_property<

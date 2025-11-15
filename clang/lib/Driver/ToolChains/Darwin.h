@@ -348,7 +348,7 @@ public:
   // FIXME: This should be eliminated. What we want to do is make this part of
   // the "default target for arguments" selection process, once we get out of
   // the argument translation business.
-  mutable bool TargetInitialized;
+  mutable bool TargetInitialized = false;
 
   enum DarwinPlatformKind {
     MacOS,
@@ -450,19 +450,19 @@ protected:
 
 public:
   bool isTargetIPhoneOS() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return (TargetPlatform == IPhoneOS || TargetPlatform == TvOS) &&
            TargetEnvironment == NativeEnvironment;
   }
 
   bool isTargetIOSSimulator() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return (TargetPlatform == IPhoneOS || TargetPlatform == TvOS) &&
            TargetEnvironment == Simulator;
   }
 
   bool isTargetIOSBased() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return isTargetIPhoneOS() || isTargetIOSSimulator();
   }
 
@@ -477,37 +477,37 @@ public:
   bool isTargetXROS() const { return TargetPlatform == XROS; }
 
   bool isTargetTvOS() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == TvOS && TargetEnvironment == NativeEnvironment;
   }
 
   bool isTargetTvOSSimulator() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == TvOS && TargetEnvironment == Simulator;
   }
 
   bool isTargetTvOSBased() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == TvOS;
   }
 
   bool isTargetWatchOS() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == WatchOS && TargetEnvironment == NativeEnvironment;
   }
 
   bool isTargetWatchOSSimulator() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == WatchOS && TargetEnvironment == Simulator;
   }
 
   bool isTargetWatchOSBased() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == WatchOS;
   }
 
   bool isTargetDriverKit() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == DriverKit;
   }
 
@@ -516,17 +516,17 @@ public:
   }
 
   bool isTargetMacOS() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == MacOS;
   }
 
   bool isTargetMacOSBased() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return TargetPlatform == MacOS || isTargetMacCatalyst();
   }
 
   bool isTargetAppleSiliconMac() const {
-    assert(TargetInitialized && "Target not initialized!");
+    if (!TargetInitialized) return false;
     return isTargetMacOSBased() && getArch() == llvm::Triple::aarch64;
   }
 
